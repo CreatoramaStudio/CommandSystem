@@ -1,0 +1,24 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "CommandSystem",
+	"Description": "Unreal Engine plugin that implements the command pattern ",
+	"Category": "Other",
+	"CreatedBy": "Z-Pass Software",
+	"CreatedByURL": "https://github.com/ZPassSoftware/CommandSystem",
+	"DocsURL": "",
+	"MarketplaceURL": "",
+	"SupportURL": "",
+	"CanContainContent": false,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": true,
+	"Modules": [
+		{
+			"Name": "CommandSystem",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	]
+}
