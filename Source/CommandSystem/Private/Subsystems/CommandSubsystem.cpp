@@ -24,27 +24,39 @@ void UCommandSubsystem::AddCommand(const TScriptInterface<ICommand> Command)
 	{
 		Commands.RemoveAt(Index,Commands.Num() - Index);
 	}
+	
 	Commands.Add(Command);
 	ICommand::Execute_Execute(Command.GetObject());
 	Index++;
+
+	if (OnAddCommand.IsBound())
+	{
+		OnAddCommand.Broadcast();
+	}
 }
 
 void UCommandSubsystem::UndoCommand()
 {
-	if (Commands.Num() == 0)
+	if (Commands.Num() <= 0)
 	{
 		return;
 	}
+	
 	if (Index > 0)
 	{
 		ICommand::Execute_Undo(Commands[Index - 1].GetObject());
 		Index--;
 	}
+
+	if (OnUndoCommand.IsBound())
+	{
+		OnUndoCommand.Broadcast();
+	}
 }
 
 void UCommandSubsystem::RedoCommand()
 {
-	if (Commands.Num() == 0)
+	if (Commands.Num() <= 0)
 	{
 		return;
 	}
@@ -54,15 +66,22 @@ void UCommandSubsystem::RedoCommand()
 		Index++;
 		ICommand::Execute_Execute(Commands[Index - 1].GetObject());
 	}
+
+	if (OnRedoCommand.IsBound())
+	{
+		OnRedoCommand.Broadcast();
+	}
 }
 
 TArray<UObject*> UCommandSubsystem::GetCommandObjects()
 {
 	TArray<UObject*> Objects;
+	
 	for(auto Command : Commands)
 	{
 		Objects.Add(Command.GetObject());
 	}
+	
 	return Objects;
 }
 
@@ -74,4 +93,14 @@ int32 UCommandSubsystem::GetNumberOfCommands() const
 int32 UCommandSubsystem::GetIndex() const
 {
 	return Index;
+}
+
+bool UCommandSubsystem::CanUndoCommand() const
+{
+	return Commands.Num() > 0 && Index > 0;
+}
+
+bool UCommandSubsystem::CanRedoCommand() const
+{
+	return Commands.Num() > 0 && Index < Commands.Num();
 }

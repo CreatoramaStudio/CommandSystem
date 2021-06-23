@@ -8,6 +8,8 @@
 
 #include "CommandSubsystem.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCommandChanged);
+
 /**
  * 
  */
@@ -17,6 +19,15 @@ class COMMANDSYSTEM_API UCommandSubsystem : public UWorldSubsystem
 	GENERATED_BODY()
 
 	public:
+
+	UPROPERTY(BlueprintAssignable, Category = "Commands")
+	FCommandChanged OnAddCommand;
+
+	UPROPERTY(BlueprintAssignable, Category = "Commands")
+	FCommandChanged OnUndoCommand;
+
+	UPROPERTY(BlueprintAssignable, Category = "Commands")
+	FCommandChanged OnRedoCommand;
 
 	protected:
 
@@ -51,6 +62,12 @@ class COMMANDSYSTEM_API UCommandSubsystem : public UWorldSubsystem
 
 	UFUNCTION(BlueprintPure, Category = "Commands")
 	int32 GetIndex() const;
+
+	UFUNCTION(BlueprintPure, Category = "Commands")
+	bool CanUndoCommand() const;
+
+	UFUNCTION(BlueprintPure, Category = "Commands")
+	bool CanRedoCommand() const;
 
 	protected:
 
