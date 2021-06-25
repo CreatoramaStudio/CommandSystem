@@ -11,8 +11,8 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FCommandChanged);
 
 /**
- * 
- */
+* 
+*/
 UCLASS()
 class COMMANDSYSTEM_API UCommandSubsystem : public UWorldSubsystem
 {
@@ -31,8 +31,10 @@ class COMMANDSYSTEM_API UCommandSubsystem : public UWorldSubsystem
 
 	protected:
 
+	UPROPERTY()
 	TArray<TScriptInterface<ICommand>> Commands;
-	
+
+	UPROPERTY()
 	int32 Index;
 
 	private:
