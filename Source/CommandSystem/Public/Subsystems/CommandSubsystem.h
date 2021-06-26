@@ -57,6 +57,9 @@ class COMMANDSYSTEM_API UCommandSubsystem : public UWorldSubsystem
 	void RedoCommand();
 
 	UFUNCTION(BlueprintCallable, Category = "Commands")
+	void ClearAllCommands();
+
+	UFUNCTION(BlueprintCallable, Category = "Commands")
 	TArray<UObject*> GetCommandObjects();
 
 	UFUNCTION(BlueprintPure, Category = "Commands")

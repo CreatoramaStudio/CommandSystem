@@ -15,7 +15,7 @@ void UCommandSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 
 void UCommandSubsystem::Deinitialize()
 {
-	
+	ClearAllCommands();
 }
 
 void UCommandSubsystem::AddCommand(const TScriptInterface<ICommand> Command)
@@ -76,6 +76,12 @@ void UCommandSubsystem::RedoCommand()
 			OnRedoCommand.Broadcast();
 		}
 	}
+}
+
+void UCommandSubsystem::ClearAllCommands()
+{
+	Index = 0;
+	Commands.Empty();
 }
 
 TArray<UObject*> UCommandSubsystem::GetCommandObjects()
