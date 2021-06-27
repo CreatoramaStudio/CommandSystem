@@ -23,7 +23,7 @@ class COMMANDSYSTEM_API UCommandObject : public UObject, public ICommand
 
 	protected:
 
-	UFUNCTION(BlueprintCallable, Category = "Commands")
+	UFUNCTION(BlueprintCallable, Category = "Commands", meta = (Class = Actor), meta = (DeterminesOutputType = Class))
 	AActor* SpawnActor(const TSubclassOf<AActor> Class, const FTransform Transform, const ESpawnActorCollisionHandlingMethod CollisionHandlingMethod,AActor* Owner,APawn* Instigator);
 
 	UFUNCTION(BlueprintPure, Category = "Commands")
