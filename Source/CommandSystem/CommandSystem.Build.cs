@@ -7,6 +7,8 @@ public class CommandSystem : ModuleRules
 	public CommandSystem(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+		bEnforceIWYU = true;
+		bUseUnity = false;
 		
 		PublicIncludePaths.AddRange(
 			new string[] {
