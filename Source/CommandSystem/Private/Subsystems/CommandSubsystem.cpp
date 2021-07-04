@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Subsystems/CommandSubsystem.h"
-#include "CommandSystemLog.h"
+#include "LogCommandSystem.h"
 
 UCommandSubsystem::UCommandSubsystem()
 {
@@ -34,10 +34,8 @@ void UCommandSubsystem::AddCommand(const TScriptInterface<ICommand> Command)
 	ICommand::Execute_Execute(Command.GetObject());
 	Index++;
 
-	if (OnAddCommand.IsBound())
-	{
-		OnAddCommand.Broadcast();
-	}
+	
+	OnAddCommand.IsBound() ? OnAddCommand.Broadcast() : FLogCommandSystem::Info("UCommandSubsystem::AddCommand OnAddCommand.IsBound is false");
 }
 
 void UCommandSubsystem::UndoCommand()
@@ -52,10 +50,7 @@ void UCommandSubsystem::UndoCommand()
 		ICommand::Execute_Undo(Commands[FMath::Clamp(Index - 1,0,Commands.Num()-1)].GetObject());
 		Index--;
 
-		if (OnUndoCommand.IsBound())
-		{
-			OnUndoCommand.Broadcast();
-		}
+		OnUndoCommand.IsBound() ? OnUndoCommand.Broadcast() : FLogCommandSystem::Info("UCommandSubsystem::UndoCommand OnUndoCommand.IsBound is false");
 	}
 }
 
@@ -71,10 +66,7 @@ void UCommandSubsystem::RedoCommand()
 		Index++;
 		ICommand::Execute_Execute(Commands[FMath::Clamp(Index - 1,0,Commands.Num()-1)].GetObject());
 
-		if (OnRedoCommand.IsBound())
-		{
-			OnRedoCommand.Broadcast();
-		}
+		OnRedoCommand.IsBound() ? OnRedoCommand.Broadcast() : FLogCommandSystem::Info("UCommandSubsystem::RedoCommand OnRedoCommand.IsBound is false");
 	}
 }
 
