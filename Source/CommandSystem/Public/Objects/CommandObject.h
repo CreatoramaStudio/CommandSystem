@@ -14,20 +14,21 @@ class COMMANDSYSTEM_API UCommandObject : public UObject, public ICommand
 	GENERATED_BODY()
 
 	public:
-
+	
 	protected:
+
+	UPROPERTY(BlueprintReadOnly, Category = "Commands",meta = (ExposeOnSpawn="true"))
+	TObjectPtr<AActor> Owner;
 
 	private:
 
 	public:
 
+	UCommandObject();
+
+	virtual UWorld* GetWorld() const override;
+
 	protected:
-
-	UFUNCTION(BlueprintCallable, Category = "Commands", meta = (Class = Actor), meta = (DeterminesOutputType = Class))
-	AActor* SpawnActor(const TSubclassOf<AActor> Class, const FTransform Transform, const ESpawnActorCollisionHandlingMethod CollisionHandlingMethod,AActor* Owner,APawn* Instigator);
-
-	UFUNCTION(BlueprintPure, Category = "Commands")
-	UCommandSubsystem* GetCommandSubsystem() const;
 
 	private:
 

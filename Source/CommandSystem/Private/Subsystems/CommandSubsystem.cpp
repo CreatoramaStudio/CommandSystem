@@ -78,11 +78,11 @@ void UCommandSubsystem::ClearAllCommands()
 
 TArray<UObject*> UCommandSubsystem::GetCommandObjects()
 {
-	TArray<UObject*> Objects;
+	TArray<TObjectPtr<UObject>> Objects;
 	
 	for(auto Command : Commands)
 	{
-		if (UObject* Object = Command.GetObject())
+		if (const TObjectPtr<UObject> Object = Command.GetObject())
 		{
 			Objects.Add(Object);
 		}
